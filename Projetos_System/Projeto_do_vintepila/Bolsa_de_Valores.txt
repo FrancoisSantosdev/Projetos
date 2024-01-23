@@ -1,37 +1,98 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="./image/favicon-16x16.png">
-    <link rel="stylesheet" href="./css/style.css">   
-    <title>Facebook - entre ou cadastre-se</title>
-</head>
-<body>
-    <div class="content">
-        <div class="content-info">
-            <h1>Facebook</h1>
-            <h3>O Facebook ajuda você a se conectar e compartilhar com as pessoas que fazem parte da sua vida.</h3>
-        </div>
-        <div class="content-login">
-            <form class="content-login-box">
-                <input type="text" class="inputs" placeholder="Email ou telefone">
-                <input type="password" class="inputs" placeholder="Senha">
-                <button class="btn btn-enter" >Entrar</button>
-                <a href="#" class="forgot-password">Esqueceu a senha ?</a>
-                <hr>
-                <button class="btn btn-create-account">Criar nova conta</button>
+using System;
+using System.Collections.Generic;
 
-            </form>
-            <p><strong>Crie uma Página para uma celebridade, uma marca ou uma empresa .</strong></p>
+// Definição do modelo de dados
+public class Trade
+{
+    public string Symbol { get; set; }
+    public decimal Price { get; set; }
+    public decimal Quantity { get; set; }
+    public int BrokerId { get; set; }
+}
 
-        </div>
+// Serviço para gerenciar as transações
+public class TradeService
+{
+    private List<Trade> trades;
 
-    </div>
-    
+    public TradeService()
+    {
+        trades = new List<Trade>();
+    }
 
+    // Registra uma nova negociação
+    public void AddTrade(Trade trade)
+    {
+        trades.Add(trade);
+        Console.WriteLine($"Nova negociação registrada - Symbol: {trade.Symbol}, Price: {trade.Price}, Quantity: {trade.Quantity}, BrokerId: {trade.BrokerId}");
+    }
 
+    // Obtém o preço atual para uma determinada ação
+    public decimal GetCurrentPrice(string symbol)
+    {
+        // Simplesmente retorna o preço médio das últimas transações para simplificar
+        var symbolTrades = trades.FindAll(t => t.Symbol == symbol);
+        if (symbolTrades.Count > 0)
+        {
+            return symbolTrades.Average(t => t.Price);
+        }
+        return 0; // Retorno padrão se não houver transações
+    }
 
-</body>
-</html>
+    // Obtém os preços atuais para todas as ações no mercado
+    public Dictionary<string, decimal> GetAllCurrentPrices()
+    {
+        var prices = new Dictionary<string, decimal>();
+        foreach (var symbol in trades.Select(t => t.Symbol).Distinct())
+        {
+            prices[symbol] = GetCurrentPrice(symbol);
+        }
+        return prices;
+    }
+
+    // Obtém os preços atuais para uma lista de símbolos de ações
+    public Dictionary<string, decimal> GetPricesForSymbols(List<string> symbols)
+    {
+        var prices = new Dictionary<string, decimal>();
+        foreach (var symbol in symbols)
+        {
+            prices[symbol] = GetCurrentPrice(symbol);
+        }
+        return prices;
+    }
+}
+
+// Exemplo de uso
+class Program
+{
+    static void Main()
+    {
+        var tradeService = new TradeService();
+
+        // Exemplo de negociação
+        var trade1 = new Trade { Symbol = "AAPL", Price = 150.50m, Quantity = 10.5m, BrokerId = 1 };
+        tradeService.AddTrade(trade1);
+
+        // Exemplo de consulta de preço atual
+        var currentPrice = tradeService.GetCurrentPrice("AAPL");
+        Console.WriteLine($"Preço atual de AAPL: {currentPrice}");
+
+        // Exemplo de consulta de preços atuais para todas as ações
+        var allPrices = tradeService.GetAllCurrentPrices();
+        Console.WriteLine("Preços atuais para todas as ações:");
+        foreach (var kvp in allPrices)
+        {
+            Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+        }
+
+        // Exemplo de consulta de preços para uma lista de símbolos
+        var symbolsToQuery = new List<string> { "AAPL", "GOOGL", "MSFT" };
+        var symbolPrices = tradeService.GetPricesForSymbols(symbolsToQuery);
+        Console.WriteLine("Preços atuais para os símbolos especificados:");
+        foreach (var kvp in symbolPrices)
+        {
+            Console.WriteLine($"{kvp.Key}: {kvp.Value}");
+        }
+    }
+}
+
