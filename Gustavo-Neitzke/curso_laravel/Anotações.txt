@@ -5,6 +5,8 @@ php artisan server
 php artisan make:migration create_jogos_table
 php artisan migrate
 
+php artisan make:model Jogo
+
 
 
 

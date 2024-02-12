@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Jogo;
 use Illuminate\Http\Request;
 
 class JogosController extends Controller

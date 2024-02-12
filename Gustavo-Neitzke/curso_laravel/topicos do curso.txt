@@ -1,11 +1,12 @@
-Anotações
+rotas 
 
-php artisan comandos
-php artisan server
-php artisan make:migration create_jogos_table
-php artisan migrate
+controller
 
+migrations
 
+aprenda blade
+
+models
 
 
 
