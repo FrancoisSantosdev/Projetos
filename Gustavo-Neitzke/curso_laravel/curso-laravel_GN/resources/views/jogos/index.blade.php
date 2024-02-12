@@ -4,8 +4,16 @@
 
 @section('content')
     {{-- Tudo que estiver aqui dentro vai ser renderizado no nosso template --}}
-    <h1>Listagem de Jogos</h1>
-    <table class="table">
+   <div class="container mt-5">
+    <div class="row">
+        <div class="col-sm-10">
+             <h1>Listagem de Jogos</h1>
+        </div>
+        <div class="col-sm-2">
+            <a href="{{route('jogos-create')}}" class="btn btn-success">Novo jogo</a>
+        </div>
+    </div>
+    <table class="table mt-3">
         <thead>
           <tr>
             <th scope="col">#</th>
@@ -29,3 +37,4 @@
         </tbody>
       </table>
 @endsection
+</div>
