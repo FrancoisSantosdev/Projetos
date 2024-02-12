@@ -10,9 +10,9 @@ class JogosController extends Controller
     public function index()
     {
         // dd('Olá Mundo');
-        $nome = 'gta';
-        $id = 1;
-        return view('jogos.index', ['nome' =>$nome, 'id'=>$id]);
+        $jogos = Jogo::all();
+        // dd($jogos);
+        return view('jogos.index', ['jogos' =>$jogos]);
 
     }
 }
