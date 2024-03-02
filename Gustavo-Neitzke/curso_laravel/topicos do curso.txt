@@ -4,15 +4,52 @@ controller
 
 migrations
 
-aprenda blade
+aprenda blade***
 
 models
 
+obs:
+inportante ja ter criado o banco de dados no mysql
+e adicionado o banco de dados no arquivo .envi
 
 
-Ciências da computação e mercado
+etapas criando api Laravel
 
-A tecnologia não é algo novo, sendo um estudo tecnico sobre alguma coisa, desde a antiguidade se via nescessario
+1- Criar o projeto laravel com o comando:
+composer create-project laravel/laravel example-app
+
+2-cria a model e a migration com o cmonando
+
+php artisan make:model Models\exemple -m
+
+local da model
+app/Models/sua models
+
+inserir o fillable dentro da model que esta na model user,
+crias as tables na model e na migration.
+
+3-dar o comando migrate para o banco de dados:
+
+php artisan migrate
+
+4-criar os controllers:
+
+php artisan make:controller api\UserController --resource
+
+utiliza as public function index, store, show, update, destroy
+adiciona a model no controller
+
+5.criar rota
+
+
+
+
+
+
+
+
+
+
 
 
 
